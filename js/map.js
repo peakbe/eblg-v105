@@ -44,6 +44,8 @@ export function initMap() {
         return null;
     }
 }
+window.runwayLayer = L.layerGroup().addTo(map);
+window.corridorLayer = L.layerGroup().addTo(map);
 
 export function getMap() {
     return map;
