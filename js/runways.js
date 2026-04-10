@@ -59,62 +59,31 @@ function angleDiff(a, b) {
 // Dessin piste
 // ------------------------------------------------------
 export function drawRunway(runway, layer) {
-    try {
-        layer.clearLayers();
-        if (!runway || runway === "UNKNOWN") return;
-        if (!RUNWAYS[runway]) return;
+    layer.clearLayers();
 
-        const r = RUNWAYS[runway];
-        const [lat1, lon1] = r.start;
-        const [lat2, lon2] = r.end;
+    const r = RUNWAYS[runway];
+    if (!r) return;
 
-        const dx = lon2 - lon1;
-        const dy = lat2 - lat1;
-        const len = Math.sqrt(dx*dx + dy*dy);
-
-        const px = -(dy / len);
-        const py = dx / len;
-
-        const meterToDegLat = 1 / 111320;
-        const meterToDegLon = 1 / (111320 * Math.cos(lat1 * Math.PI/180));
-
-        const halfW_lat = (r.width_m * meterToDegLat) / 2;
-        const halfW_lon = (r.width_m * meterToDegLon) / 2;
-
-        const p1L = [lat1 + py * halfW_lat, lon1 + px * halfW_lon];
-        const p1R = [lat1 - py * halfW_lat, lon1 - px * halfW_lon];
-        const p2L = [lat2 + py * halfW_lat, lon2 + px * halfW_lon];
-        const p2R = [lat2 - py * halfW_lat, lon2 - px * halfW_lon];
-
-        L.polygon([p1L, p1R, p2R, p2L], {
-            color: "#222",
-            weight: 1,
-            fillColor: "#333",
-            fillOpacity: 0.9
-        }).addTo(layer);
-
-        L.polyline([r.start, r.end], {
-            color: "#fff",
-            weight: 2,
-            dashArray: "8,8"
-        }).addTo(layer);
-
-        const num1 = (r.heading / 10).toFixed(0).padStart(2, "0");
-        const num2 = (((r.heading + 180) % 360) / 10).toFixed(0).padStart(2, "0");
-
-        L.marker(r.start, {
-            icon: L.divIcon({ className: "runway-number", html: num1 })
-        }).addTo(layer);
-
-        L.marker(r.end, {
-            icon: L.divIcon({ className: "runway-number", html: num2 })
-        }).addTo(layer);
-
-    } catch (err) {
-        logErr("Erreur drawRunway :", err);
-    }
+    L.polyline(r.coords, {
+        color: "#ffffff",
+        weight: 4,
+        opacity: 0.9
+    }).addTo(layer);
 }
 
+export function drawCorridor(runway, layer) {
+    layer.clearLayers();
+
+    const r = RUNWAYS[runway];
+    if (!r) return;
+
+    L.polyline(r.corridor, {
+        color: "#00e5ff",
+        weight: 2,
+        dashArray: "6 6",
+        opacity: 0.7
+    }).addTo(layer);
+}
 
 // ------------------------------------------------------
 // Corridor
