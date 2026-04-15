@@ -4,18 +4,14 @@
     <meta charset="UTF-8">
     <title>EBLG Dashboard PRO+</title>
 
-    <!-- Responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Leaflet CSS -->
-    <link rel="stylesheet" 
-          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
     <!-- MarkerCluster CSS -->
-    <link rel="stylesheet" 
-          href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css">
-    <link rel="stylesheet" 
-          href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css">
 
     <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
@@ -60,16 +56,17 @@
             <h2>Statut API</h2>
             <div id="status-panel" class="status-panel"></div>
         </section>
-    </div>
+
         <section class="panel">
             <h2>Logs Render</h2>
             <div id="logs-panel" class="logs-panel"></div>
         </section>
-    
+
         <section class="panel">
             <h2>Logs Render LIVE</h2>
             <div id="logs-live" class="logs-live"></div>
         </section>
+    </div>
 
     <!-- ======================================================
          DETAIL PANEL
@@ -106,23 +103,23 @@
     </div>
 
     <!-- ======================================================
-         JAVASCRIPT
+         JAVASCRIPT (optimisé)
     ====================================================== -->
 
     <!-- Leaflet core -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <!-- MarkerCluster -->
-    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <script defer src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
     <!-- Heatmap plugin -->
-    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    <script defer src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
 
     <!-- PolylineDecorator plugin -->
-    <script src="https://unpkg.com/leaflet-polylinedecorator"></script>
+    <script defer src="https://unpkg.com/leaflet-polylinedecorator"></script>
 
     <!-- App -->
-    <script type="module" src="js/app.js?v=127"></script>
+    <script type="module" defer src="js/app.js?v=128"></script>
 
 </body>
 </html>
