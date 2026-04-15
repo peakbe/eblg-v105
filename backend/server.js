@@ -127,6 +127,9 @@ app.get("/metar", async (req, res) => {
         return res.json(fb);
     }
 
+    // Important pour ton frontend
+    data.fallback = false;
+
     setCache("metar", data);
     res.json(data);
 });
@@ -154,6 +157,9 @@ app.get("/taf", async (req, res) => {
         return res.json(fb);
     }
 
+    // Important pour ton frontend
+    data.fallback = false;
+
     setCache("taf", data);
     res.json(data);
 });
@@ -168,12 +174,21 @@ app.get("/fids", async (req, res) => {
     const url = `http://api.aviationstack.com/v1/flights?dep_iata=LGG&access_key=${process.env.AVIATIONSTACK_KEY}`;
     const data = await safeFetch(url);
 
+    // API KO → fallback dynamique
     if (data.fallback || !data.data) {
         const fb = generateDynamicFids();
         setCache("fids", fb);
         return res.json(fb);
     }
 
+    // API OK mais 0 vols → fallback dynamique
+    if (data.data.length === 0) {
+        const fb = generateDynamicFids();
+        setCache("fids", fb);
+        return res.json(fb);
+    }
+
+    // API OK → vols réels
     const flights = data.data.slice(0, 10).map(f => ({
         flight: f.flight?.iata || "N/A",
         destination: f.arrival?.iata || "N/A",
