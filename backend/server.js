@@ -55,7 +55,10 @@ app.get("/metar", async (req, res) => {
     if (data.fallback) {
         return res.json({
             fallback: true,
-            metar: "Unavailable",
+            data: [{
+                raw_text: "METAR unavailable",
+                wind: { degrees: 0, speed_kts: 0 }
+            }],
             timestamp: new Date().toISOString()
         });
     }
@@ -64,7 +67,7 @@ app.get("/metar", async (req, res) => {
 });
 
 // =========================
-// TAF
+// TAF (corrigé)
 // =========================
 app.get("/taf", async (req, res) => {
     const data = await safeFetch(
@@ -74,7 +77,9 @@ app.get("/taf", async (req, res) => {
     if (data.fallback) {
         return res.json({
             fallback: true,
-            taf: "Unavailable",
+            data: [{
+                raw_text: "TAF unavailable"
+            }],
             timestamp: new Date().toISOString()
         });
     }
@@ -83,7 +88,7 @@ app.get("/taf", async (req, res) => {
 });
 
 // =========================
-// FIDS (OpenSky)
+// FIDS (OpenSky → fallback propre)
 // =========================
 app.get("/fids", async (req, res) => {
     const now = Math.floor(Date.now() / 1000);
@@ -104,13 +109,6 @@ app.get("/fids", async (req, res) => {
     }
 
     res.json(data);
-});
-
-// =========================
-// SONOMETERS (placeholder)
-// =========================
-app.get("/sonos", (req, res) => {
-    res.json({ ok: true });
 });
 
 // =========================
